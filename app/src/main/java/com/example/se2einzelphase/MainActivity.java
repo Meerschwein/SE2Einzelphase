@@ -9,6 +9,8 @@ import android.os.Bundle;
 import java.io.*;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Button calculateButton = findViewById(R.id.calculateButton);
-        sendButton.setOnClickListener(new View.OnClickListener() {
+        calculateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CharSequence matrikelnummer = matrikelnummerInput.getText();
@@ -67,10 +69,23 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }).start();
-
     }
 
     private void calculate(CharSequence matrikelnummer){
+        // 11912205 % 7 = 4
+        char[] matrikelnummerAsChararray = matrikelnummer.toString().toCharArray();
+        int numPrimes = 0;
+        char[] matrikelnummerNoPrimes = new char[matrikelnummerAsChararray.length];
 
+        for (char c : matrikelnummerAsChararray){
+            if (!(c == '2' || c == '3' || c == '5' || c == '7')){
+                matrikelnummerNoPrimes[numPrimes] = c;
+                numPrimes++;
+            }
+        }
+        matrikelnummerNoPrimes = Arrays.copyOfRange(matrikelnummerNoPrimes, 0, numPrimes);
+        Arrays.sort(matrikelnummerNoPrimes);
+
+        displayMessage(Arrays.toString(matrikelnummerNoPrimes));
     }
 }
