@@ -27,6 +27,15 @@ public class MainActivity extends AppCompatActivity {
                 sendRequest(matrikelnummer);
             }
         });
+
+        Button calculateButton = findViewById(R.id.calculateButton);
+        sendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CharSequence matrikelnummer = matrikelnummerInput.getText();
+                calculate(matrikelnummer);
+            }
+        });
     }
 
     private synchronized void displayMessage(String message) {
@@ -58,6 +67,10 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }).start();
+
+    }
+
+    private void calculate(CharSequence matrikelnummer){
 
     }
 }
